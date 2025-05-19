@@ -1,0 +1,4 @@
+export const API_URL = "http://localhost:1337/api";
+export const API_TOKEN =
+  "135a3a0969e589ca53b60d38100a51d95c835a65fdf0ea05009e24586fd5f9c803be1cfc0496eef1c6a14fc2440ab3eb1f22b9fb386e33ff1fc5a8fcda76d81ee224d1a4b9b5579033fe85a481fde9174fd466e4394923c6b5c5e7877eb018594e38fc0538e1b049b2c786eb09a4d5f0ac349abb52e794065dd864ef6082b4c2";
+export const PAGE_SIZE_OPTIONS = [5, 10, 25, 50];
