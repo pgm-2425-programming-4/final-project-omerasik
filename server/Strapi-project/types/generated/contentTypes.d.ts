@@ -376,6 +376,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiTaskStatusTaskStatus extends Struct.CollectionTypeSchema {
   collectionName: 'task_statuses';
   info: {
+    description: '';
     displayName: 'Task-status';
     pluralName: 'task-statuses';
     singularName: 'task-status';
@@ -397,6 +398,7 @@ export interface ApiTaskStatusTaskStatus extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     publishedAt: Schema.Attribute.DateTime;
+    tasks: Schema.Attribute.Relation<'oneToMany', 'api::task.task'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -406,6 +408,7 @@ export interface ApiTaskStatusTaskStatus extends Struct.CollectionTypeSchema {
 export interface ApiTaskTask extends Struct.CollectionTypeSchema {
   collectionName: 'tasks';
   info: {
+    description: '';
     displayName: 'Tasks';
     pluralName: 'tasks';
     singularName: 'task';
@@ -421,6 +424,10 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::task.task'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    task_status: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::task-status.task-status'
+    >;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{

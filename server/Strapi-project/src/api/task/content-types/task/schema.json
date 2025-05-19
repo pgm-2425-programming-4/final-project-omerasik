@@ -4,7 +4,8 @@
   "info": {
     "singularName": "task",
     "pluralName": "tasks",
-    "displayName": "Tasks"
+    "displayName": "Tasks",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,6 +16,11 @@
       "required": true,
       "minLength": 2,
       "maxLength": 100
+    },
+    "task_status": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::task-status.task-status"
     }
   }
 }
