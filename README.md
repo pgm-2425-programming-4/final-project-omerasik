@@ -3,3 +3,14 @@
 
 # Author
 Omer Asik
+
+# Deployment Links
+
+Frontend (Netlify): https://inspiring-horse-e49fd1.netlify.app
+
+Backend API (Render Strapi): https://jammin-api-cppe.onrender.com
+
+Database (Render PostgreSQL) Internal Connection: postgresql://jammin_r7sp_user:vtNp7JLCzqYUUtUGWnUVgKK77o05R7v7@dpg-d0m4uiogjchc739i2iu0-a/jammin_r7sp 
+
+
+
