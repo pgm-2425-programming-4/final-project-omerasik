@@ -373,37 +373,11 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiLabelLabel extends Struct.CollectionTypeSchema {
-  collectionName: 'labels';
-  info: {
-    displayName: 'Labels';
-    pluralName: 'labels';
-    singularName: 'label';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::label.label'> &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    tasks: Schema.Attribute.Relation<'manyToMany', 'api::task.task'>;
-    title: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiProjectProject extends Struct.CollectionTypeSchema {
   collectionName: 'projects';
   info: {
     description: '';
-    displayName: 'Projects';
+    displayName: 'Project';
     pluralName: 'projects';
     singularName: 'project';
   };
@@ -420,22 +394,47 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       'api::project.project'
     > &
       Schema.Attribute.Private;
+    Name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    tasks: Schema.Attribute.Relation<'oneToMany', 'api::task.task'>;
-    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
   };
 }
 
-export interface ApiTaskStatusTaskStatus extends Struct.CollectionTypeSchema {
-  collectionName: 'task_statuses';
+export interface ApiStateState extends Struct.CollectionTypeSchema {
+  collectionName: 'states';
   info: {
     description: '';
-    displayName: 'Task-status';
-    pluralName: 'task-statuses';
-    singularName: 'task-status';
+    displayName: 'State';
+    pluralName: 'states';
+    singularName: 'state';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::state.state'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTaskTypeTaskType extends Struct.CollectionTypeSchema {
+  collectionName: 'task_types';
+  info: {
+    description: '';
+    displayName: 'Task Type';
+    pluralName: 'task-types';
+    singularName: 'task-type';
   };
   options: {
     draftAndPublish: true;
@@ -447,14 +446,12 @@ export interface ApiTaskStatusTaskStatus extends Struct.CollectionTypeSchema {
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::task-status.task-status'
+      'api::task-type.task-type'
     > &
       Schema.Attribute.Private;
-    name: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
+    name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    tasks: Schema.Attribute.Relation<'oneToMany', 'api::task.task'>;
+    tasks: Schema.Attribute.Relation<'manyToMany', 'api::task.task'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -465,7 +462,7 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
   collectionName: 'tasks';
   info: {
     description: '';
-    displayName: 'Tasks';
+    displayName: 'Task';
     pluralName: 'tasks';
     singularName: 'task';
   };
@@ -477,22 +474,17 @@ export interface ApiTaskTask extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
-    labels: Schema.Attribute.Relation<'manyToMany', 'api::label.label'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::task.task'> &
       Schema.Attribute.Private;
-    project: Schema.Attribute.Relation<'manyToOne', 'api::project.project'>;
+    project: Schema.Attribute.Relation<'oneToOne', 'api::project.project'>;
     publishedAt: Schema.Attribute.DateTime;
-    task_status: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::task-status.task-status'
+    state: Schema.Attribute.Relation<'oneToOne', 'api::state.state'>;
+    task_types: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::task-type.task-type'
     >;
-    title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 100;
-        minLength: 2;
-      }>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1008,9 +1000,9 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::label.label': ApiLabelLabel;
       'api::project.project': ApiProjectProject;
-      'api::task-status.task-status': ApiTaskStatusTaskStatus;
+      'api::state.state': ApiStateState;
+      'api::task-type.task-type': ApiTaskTypeTaskType;
       'api::task.task': ApiTaskTask;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
