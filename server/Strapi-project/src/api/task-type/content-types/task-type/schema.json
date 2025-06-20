@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "task_types",
+  "info": {
+    "singularName": "task-type",
+    "pluralName": "task-types",
+    "displayName": "Task Type",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "tasks": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::task.task",
+      "mappedBy": "task_types"
+    }
+  }
+}

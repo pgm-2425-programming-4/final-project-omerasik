@@ -23,20 +23,23 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
-    "styled-components": "^6.0.0"
+    "styled-components": "^6.0.0",
+    "video-react": "^0.16.0"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "file-loader": "^6.2.0",
+    "style-loader": "^3.3.3",
     "typescript": "^5"
   },
   "engines": {
-    "node": ">=18.0.0 <=22.x.x",
+    "node": "18.x",
     "npm": ">=6.0.0"
   },
   "strapi": {
-    "uuid": "bb6d9f04-9e1f-43a8-80ce-3dc0183c94ab",
-    "installId": "57a1b38c7276c6699c8c2c1f3d189f7d84067a4ebb6d796c93eae43b197c59e1"
+    "uuid": "608faa36-c4a1-472b-83c9-4949d26e66fa",
+    "installId": "9068f424d6e86e624e52c45fb2c92e0d633ac5406fc9545f011e5cc709d48cf1"
   }
 }

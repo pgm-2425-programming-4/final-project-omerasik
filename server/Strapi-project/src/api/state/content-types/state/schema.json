@@ -1,17 +1,17 @@
 {
   "kind": "collectionType",
-  "collectionName": "projects",
+  "collectionName": "states",
   "info": {
-    "singularName": "project",
-    "pluralName": "projects",
-    "displayName": "Project",
+    "singularName": "state",
+    "pluralName": "states",
+    "displayName": "State",
     "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "attributes": {
-    "Name": {
+    "title": {
       "type": "string",
       "required": true
     }
